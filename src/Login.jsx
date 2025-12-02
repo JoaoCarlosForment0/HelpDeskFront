@@ -16,7 +16,7 @@ function Login() {
   };
   const logarUsuario = () => {
     axios.post("http://localhost:3000/auth/login", inputs).then(
-        (response) => {console.log("passou eu acho" + response.data.token)}, (response) => {console.log("não passou eu acho "); } 
+        (response) => {localStorage.setItem("tokenApi",response.data.token)}, (response) => {console.log("não passou eu acho "); } 
     )
   }
   return (
