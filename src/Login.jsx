@@ -1,8 +1,16 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useContext, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { AuthContext } from "./context/AuthContext";
 
 function Login() {
+  const { login, loading, user } = useContext(AuthContext);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if(!loading && user){
+      navigate("/")
+    }
+  }, [loading, user]);
   const [inputs, setInputs] = useState({
     email: "",
     senha: "",
@@ -14,11 +22,18 @@ function Login() {
       [name]: value,
     }));
   };
-  const logarUsuario = () => {
-    axios.post("http://localhost:3000/auth/login", inputs).then(
-        (response) => {localStorage.setItem("tokenApi",response.data.token)}, (response) => {console.log("não passou eu acho "); } 
-    )
-  }
+  const logarUsuario = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/auth/login",
+        inputs
+      );
+      await login(response.data.token);
+      navigate("/");
+    } catch (error) {
+      console.log(err);
+    }
+  };
   return (
     <div className=" flex flex-col gap-5">
       <input

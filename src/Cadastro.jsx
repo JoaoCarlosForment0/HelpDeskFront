@@ -29,9 +29,9 @@ function Cadastro() {
   };
   return (
     <div className="flex flex-col gap-5">
-      <input type="text" name="nome" id="nome" onChange={handleChange} />
-      <input type="text" name="email" id="email" onChange={handleChange} />
-      <input type="password" name="senha" id="senha" onChange={handleChange} />
+      <input type="text" name="nome" id="nome"  placeholder="nome" onChange={handleChange} />
+      <input type="text" name="email" id="email" placeholder="email" onChange={handleChange} />
+      <input type="password" name="senha" id="senha" placeholder="senha" onChange={handleChange} />
       <select
         name="perfil"
         id="perfil"
