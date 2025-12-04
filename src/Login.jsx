@@ -7,8 +7,8 @@ function Login() {
   const { login, loading, user } = useContext(AuthContext);
   const navigate = useNavigate();
   useEffect(() => {
-    if(!loading && user){
-      navigate("/")
+    if (!loading && user) {
+      navigate("/");
     }
   }, [loading, user]);
   const [inputs, setInputs] = useState({
@@ -30,7 +30,7 @@ function Login() {
       );
       await login(response.data.token);
       navigate("/");
-    } catch (error) {
+    } catch (err) {
       console.log(err);
     }
   };

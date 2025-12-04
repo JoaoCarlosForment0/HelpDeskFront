@@ -5,6 +5,7 @@ export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [perfil, setPerfil] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const login = async (token) => {
@@ -13,12 +14,14 @@ export function AuthProvider({ children }) {
 
     const res = await axios.post("http://localhost:3000/home");
     setUser(res.data.user);
+    setPerfil(res.data.perfil);
   };
 
   const logout = () => {
     localStorage.removeItem("tokenApi");
     delete axios.defaults.headers.common["authorization"];
     setUser(null);
+    setPerfil(null);
   };
 
   useEffect(() => {
@@ -33,9 +36,11 @@ export function AuthProvider({ children }) {
       .post("http://localhost:3000/home")
       .then((res) => {
         setUser(res.data.user);
+        setPerfil(res.data.perfil);
       })
       .catch(() => {
         setUser(null);
+        setPerfil(null);
       })
       .finally(() => {
         setLoading(false);
@@ -57,7 +62,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, logout }}>
+    <AuthContext.Provider value={{ user, perfil, loading, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
