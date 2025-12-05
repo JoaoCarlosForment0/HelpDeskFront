@@ -1,10 +1,12 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "./context/AuthContext";
 
 function GetChamado({ rota }) {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [chamados, setChamados] = useState([]);
+  const { loading } = useContext(AuthContext);
   useEffect(() => {
     const getChamados = async () => {
       try {
@@ -17,23 +19,72 @@ function GetChamado({ rota }) {
     getChamados();
   }, []);
 
-  if (chamados.length < 1) {
+  if (loading) {
     return <h1>Carregando</h1>;
+  } else if (chamados.length < 1) {
+    return <h2 className=" text-gray-500">Sem chamados</h2>;
   }
-  
+
   function enviarPagAlter(chamado) {
     navigate("/alterar", {
-      state: { dados: chamado }
-    })
+      state: { dados: chamado },
+    });
+  }
+
+  async function apagaChamado(id_chamado) {
+    try {
+      const response = await axios.delete(
+        `http://localhost:3000/chamados/${id_chamado}`
+      );
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (
-    <div>
+    <div className="flex flex-col gap-3">
       {chamados.map((e) => {
         return (
-          <div key={`div ${e.id}`}className="flex flex-row gap-5">
-            <h1 key={e.id}>{e.titulo}</h1>
-            <button key={`button ${e.id}`} onClick={()=>{enviarPagAlter(e)}}>Alterar</button>
+          <div
+            key={`div ${e.id}`}
+            className="flex flex-row bg-[#272727] p-5 rounded-lg justify-between"
+          >
+            <div>
+              <h2 className="text-gray-500">Título</h2>
+              <h2 key={e.id} className="text-xl">
+                {e.titulo}
+              </h2>
+              <h2 className="text-gray-500">Categoria</h2>
+              <h2 key={e.id} className="text-xl">
+                {e.categoria}
+              </h2>
+              <h2 className="text-gray-500">Prioridade</h2>
+              <h2 key={e.id} className="text-xl">
+                {e.prioridade}
+              </h2>
+            </div>
+            <div className="flex flex-row gap-3">
+              <button
+                key={`button ${e.id}`}
+                onClick={() => {
+                  enviarPagAlter(e);
+                }}
+                className="button-home h-10"
+              >
+                Alterar
+              </button>
+              <button
+                key={`button-remove ${e.id}`}
+                onClick={() => {
+                  apagaChamado(e.id);
+                  window.location.reload();
+                }}
+                className="button-home h-10 p-2"
+              >
+                Remover
+              </button>
+            </div>
           </div>
         );
       })}

@@ -35,13 +35,15 @@ function Login() {
     }
   };
   return (
-    <div className=" flex flex-col gap-5">
+    <div className="flex flex-col gap-5 w-[90vw] h-[60vh] bg-linear-122 from-[#1d1d1d] to-[#222222] max-w-[500px] rounded-lg p-15">
+      <h1>Bem vindo!</h1>
       <input
         type="text"
         name="email"
         id="email"
         placeholder="E-mail"
         onChange={handleChange}
+        autoComplete="false"
       />
       <input
         type="password"

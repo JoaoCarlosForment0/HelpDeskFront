@@ -28,7 +28,8 @@ function Cadastro() {
     console.log(inputs);
   };
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-5 w-[90vw] h-[60vh] bg-linear-122 from-[#1d1d1d] to-[#222222] max-w-[500px] rounded-lg p-15">
+      <h1>Cadastrar</h1>
       <input type="text" name="nome" id="nome"  placeholder="nome" onChange={handleChange} />
       <input type="text" name="email" id="email" placeholder="email" onChange={handleChange} />
       <input type="password" name="senha" id="senha" placeholder="senha" onChange={handleChange} />
@@ -38,7 +39,7 @@ function Cadastro() {
         className=" p-2 border-2 border-black text-black rounded-md"
         onChange={handleChange}
       >
-        <option value="">--selecione um perfil--</option>
+        <option value="" disabled>--selecione um perfil--</option>
         <option value="usuario">Usuário</option>
         <option value="tecnico">Técnico</option>
       </select>

@@ -1,12 +1,20 @@
 @import "tailwindcss";
 
+@property --angle {
+    syntax: "<angle>";
+    /* Type of value */
+    initial-value: 0deg;
+    /* Start angle for animation */
+    inherits: false;
+}
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
+  color: #ffffffde;
   background-color: #242424;
 
   font-synthesis: none;
@@ -17,10 +25,21 @@
 *:focus{
   outline: none;
 }
-input {
-  border: 2px solid black;
-  padding: 5px;
+input, select {
+  border: 2px solid #222222;
+  background-color: #242424;
+  color: #868686de;
+  padding: 10px;
   border-radius: 5px;
+  transition: .5s;
+}
+select{
+  appearance: none;
+  outline: none;
+}
+input:focus{
+  transition: .5s;
+  border: 2px solid #646cff;
 }
 a {
   font-weight: 500;
@@ -46,23 +65,35 @@ h1 {
   line-height: 1.1;
 }
 
-button {
+button, a {
   border-radius: 8px;
-  border: 1px solid transparent;
+  border: 1px solid #646cff;
+  text-align: center;
+  color: #646cff;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: transparent;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: 0.45s;
 }
-button:hover {
-  border-color: #646cff;
+button:hover, a:hover {
+  background-color: #646cff;
+  color: #ffffffde;
 }
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+.button-home{
+  background-color: #646cff;
+  color: #ffffffde;
+}
+
+.button-home:hover{
+  background-color: #8288f3;
 }
 
 @media (prefers-color-scheme: light) {
