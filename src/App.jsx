@@ -4,6 +4,7 @@ import Cadastro from "./Cadastro";
 import PrivateRoute from "./PrivateRoute";
 import Home from "./Home";
 import CreateChamado from "./CreateChamado";
+import AlterChamado from "./AlterChamado";
 
 function App() {
   return (
@@ -19,6 +20,10 @@ function App() {
           <Route
             path="/criarChamado"
             element={<PrivateRoute element={CreateChamado} />}
+          />
+          <Route
+            path="/alterar"
+            element={<PrivateRoute element={AlterChamado} />}
           />
         </Routes>
       </BrowserRouter>
