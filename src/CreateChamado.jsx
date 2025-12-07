@@ -37,7 +37,7 @@ function CreateChamado() {
 
   return (
     <div className="flex flex-col gap-5 w-[90vw] h-[60vh] min-h-[520px] bg-linear-122 from-[#1d1d1d] to-[#222222] max-w-[500px] rounded-lg p-15">
-      <h1>Cadastrar</h1>
+      <h1>Criar chamado</h1>
       <input
         type="text"
         name="titulo"
@@ -53,7 +53,7 @@ function CreateChamado() {
         onChange={handleChange}
       />
       <input
-        type="password"
+        type="text"
         name="categoria"
         id="categoria"
         placeholder="categoria"

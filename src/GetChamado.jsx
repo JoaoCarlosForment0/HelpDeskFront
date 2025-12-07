@@ -34,7 +34,7 @@ function GetChamado({ rota }) {
   async function apagaChamado(id_chamado) {
     try {
       const response = await axios.delete(criaUrl(`chamados/${id_chamado}`));
-      console.log(response);
+      window.location.reload();
     } catch (err) {
       console.log(err);
     }
@@ -49,26 +49,26 @@ function GetChamado({ rota }) {
             className="flex flex-row bg-[#272727] p-5 rounded-lg justify-between"
           >
             <div>
-              <h2 key={"titulo " + e.id} className="text-gray-500">
+              <h2 className="text-gray-500">
                 Título
               </h2>
-              <h2 key={e.titulo} className="text-xl">
+              <h2 className="text-xl">
                 {e.titulo}
               </h2>
-              <h2 key={"categoria " + e.id} className="text-gray-500">
+              <h2 className="text-gray-500">
                 Categoria
               </h2>
-              <h2 key={e.categoria} className="text-xl">
+              <h2 className="text-xl">
                 {e.categoria}
               </h2>
-              <h2 key={"prioridade " + e.id} className="text-gray-500">
+              <h2 className="text-gray-500">
                 Prioridade
               </h2>
-              <h2 key={e.prioridade} className="text-xl">
+              <h2 className="text-xl">
                 {e.prioridade}
               </h2>
             </div>
-            <div key={"div buttons " + e.id} className="flex flex-row gap-3">
+            <div className="flex flex-row gap-3">
               <button
                 key={`button ${e.id}`}
                 onClick={() => {
@@ -82,7 +82,6 @@ function GetChamado({ rota }) {
                 key={`button-remove ${e.id}`}
                 onClick={() => {
                   apagaChamado(e.id);
-                  window.location.reload();
                 }}
                 className="button-home h-10 p-2"
               >
