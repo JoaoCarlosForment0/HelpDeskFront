@@ -4,7 +4,7 @@ import axios from "axios";
 import { AuthContext } from "./context/AuthContext";
 
 function Login() {
-  const { login, loading, user } = useContext(AuthContext);
+  const { login, loading, user, criaUrl } = useContext(AuthContext);
   const navigate = useNavigate();
   useEffect(() => {
     if (!loading && user) {
@@ -25,7 +25,7 @@ function Login() {
   const logarUsuario = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/auth/login",
+        criaUrl("auth/login"),
         inputs
       );
       await login(response.data.token);
@@ -35,7 +35,7 @@ function Login() {
     }
   };
   return (
-    <div className="flex flex-col gap-5 w-[90vw] h-[60vh] bg-linear-122 from-[#1d1d1d] to-[#222222] max-w-[500px] rounded-lg p-15">
+    <div className="flex flex-col gap-5 w-[90vw] h-[60vh] min-h-[450px] bg-linear-122 from-[#1d1d1d] to-[#222222] max-w-[500px] rounded-lg p-15">
       <h1>Bem vindo!</h1>
       <input
         type="text"

@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "./context/AuthContext";
 
 function CreateChamado() {
   const navigate = useNavigate();
@@ -10,11 +11,12 @@ function CreateChamado() {
     categoria: "",
     prioridade: "baixa",
   });
+  const { criaUrl } = useContext(AuthContext);
 
   const criaChamado = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/chamados/",
+        criaUrl("chamados/"),
         respostasUser
       );
       console.log(response);
@@ -34,32 +36,39 @@ function CreateChamado() {
   }
 
   return (
-    <div>
+    <div className="flex flex-col gap-5 w-[90vw] h-[60vh] min-h-[520px] bg-linear-122 from-[#1d1d1d] to-[#222222] max-w-[500px] rounded-lg p-15">
+      <h1>Cadastrar</h1>
       <input
         type="text"
         name="titulo"
         id="titulo"
-        placeholder="Título Chamado"
+        placeholder="titulo"
         onChange={handleChange}
       />
       <input
         type="text"
         name="descricao"
         id="descricao"
-        placeholder="Descrição Chamado"
+        placeholder="descricao"
         onChange={handleChange}
       />
       <input
-        type="text"
+        type="password"
         name="categoria"
         id="categoria"
-        placeholder="Categoria"
+        placeholder="categoria"
         onChange={handleChange}
       />
-      <select name="prioridade" onChange={handleChange}>
-        <option value="baixa" defaultChecked>
-          Baixa
+      <select
+        name="prioridade"
+        id="prioridade"
+        className=" p-2 border-2 border-black text-black rounded-md"
+        onChange={handleChange}
+      >
+        <option value="" disabled>
+          --selecione a prioridade--
         </option>
+        <option value="baixa">Baixa</option>
         <option value="media">Média</option>
         <option value="alta">Alta</option>
       </select>

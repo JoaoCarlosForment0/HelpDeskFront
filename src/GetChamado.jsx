@@ -6,7 +6,7 @@ import { AuthContext } from "./context/AuthContext";
 function GetChamado({ rota }) {
   const navigate = useNavigate();
   const [chamados, setChamados] = useState([]);
-  const { loading } = useContext(AuthContext);
+  const { loading, criaUrl } = useContext(AuthContext);
   useEffect(() => {
     const getChamados = async () => {
       try {
@@ -33,9 +33,7 @@ function GetChamado({ rota }) {
 
   async function apagaChamado(id_chamado) {
     try {
-      const response = await axios.delete(
-        `http://localhost:3000/chamados/${id_chamado}`
-      );
+      const response = await axios.delete(criaUrl(`chamados/${id_chamado}`));
       console.log(response);
     } catch (err) {
       console.log(err);
@@ -51,20 +49,26 @@ function GetChamado({ rota }) {
             className="flex flex-row bg-[#272727] p-5 rounded-lg justify-between"
           >
             <div>
-              <h2 className="text-gray-500">Título</h2>
-              <h2 key={e.id} className="text-xl">
+              <h2 key={"titulo " + e.id} className="text-gray-500">
+                Título
+              </h2>
+              <h2 key={e.titulo} className="text-xl">
                 {e.titulo}
               </h2>
-              <h2 className="text-gray-500">Categoria</h2>
-              <h2 key={e.id} className="text-xl">
+              <h2 key={"categoria " + e.id} className="text-gray-500">
+                Categoria
+              </h2>
+              <h2 key={e.categoria} className="text-xl">
                 {e.categoria}
               </h2>
-              <h2 className="text-gray-500">Prioridade</h2>
-              <h2 key={e.id} className="text-xl">
+              <h2 key={"prioridade " + e.id} className="text-gray-500">
+                Prioridade
+              </h2>
+              <h2 key={e.prioridade} className="text-xl">
                 {e.prioridade}
               </h2>
             </div>
-            <div className="flex flex-row gap-3">
+            <div key={"div buttons " + e.id} className="flex flex-row gap-3">
               <button
                 key={`button ${e.id}`}
                 onClick={() => {

@@ -4,15 +4,20 @@ import axios from "axios";
 export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
+  const apiUrl = import.meta.env.VITE_BACK_URL;
   const [user, setUser] = useState(null);
   const [perfil, setPerfil] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const criaUrl = (rota) => {
+    return `${apiUrl}/${rota}`;
+  };
 
   const login = async (token) => {
     localStorage.setItem("tokenApi", token);
     axios.defaults.headers.common["authorization"] = `Bearer ${token}`;
 
-    const res = await axios.post("http://localhost:3000/home");
+    const res = await axios.post(criaUrl("home"));
     setUser(res.data.user);
     setPerfil(res.data.perfil);
   };
@@ -33,7 +38,7 @@ export function AuthProvider({ children }) {
     //Deixa o token salvo dentro do header do axios para toda requisição
 
     axios
-      .post("http://localhost:3000/home")
+      .post(criaUrl("home"))
       .then((res) => {
         setUser(res.data.user);
         setPerfil(res.data.perfil);
@@ -62,7 +67,9 @@ export function AuthProvider({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, perfil, loading, login, logout }}>
+    <AuthContext.Provider
+      value={{ user, perfil, loading, login, logout, criaUrl }}
+    >
       {children}
     </AuthContext.Provider>
   );

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import GetChamado from "./GetChamado";
 
 function Home() {
-  const { user, logout, perfil } = useContext(AuthContext);
+  const { user, logout, perfil, criaUrl } = useContext(AuthContext);
   const navigate = useNavigate();
   return (
     <div className="w-screen flex flex-col justify-center gap-5 items-start p-5">
@@ -27,12 +27,12 @@ function Home() {
           <h2 className="text-3xl">
             Chamados {perfil === "tecnico" ? "do usuário" : null}
           </h2>
-          <GetChamado rota="http://localhost:3000/chamados/" />
+          <GetChamado rota={criaUrl("chamados/")} />
         </div>
         {perfil === "tecnico" ? (
           <div className="flex flex-col gap-5 w-full rounded-md p-5 bg-[#232323]">
             <h2 className="text-3xl">Chamados gerais</h2>
-            <GetChamado rota="http://localhost:3000/chamados/all" />
+            <GetChamado rota={criaUrl("chamados/all")}/>
           </div>
         ) : null}
       </div>
